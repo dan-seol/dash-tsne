@@ -46,10 +46,11 @@ def input_field(title, state_id, state_value, state_max, state_min):
                 'display': 'inline-block',
                 'margin-top': '0px',
                 'margin-bottom': '0px'
-            }
+        }
         )
     ]
     )
+
 
 # Generate the default scatter plot
 tsne_df = pd.read_csv("data/tsne_3d.csv", index_col=0)
@@ -161,7 +162,8 @@ local_layout = html.Div([
 
             input_field("Perplexity:", "perplexity-state", 20, 50, 5),
 
-            input_field("Number of Iterations:", "n-iter-state", 400, 1000, 250),
+            input_field("Number of Iterations:",
+                        "n-iter-state", 400, 1000, 250),
 
             input_field("Learning Rate:", "lr-state", 200, 1000, 10),
 
@@ -230,7 +232,7 @@ local_layout = html.Div([
                 style={
                     'margin-bottom': '2px',
                     'margin-top': '2px'
-                }
+            }
             )
         ],
             className="four columns",
@@ -245,7 +247,7 @@ local_layout = html.Div([
                 '-moz-user-select': 'none',
                 '-webkit-user-select': 'none',
                 '-ms-user-select': 'none'
-            }
+        }
         )
     ],
         className="row"
@@ -259,7 +261,7 @@ To view pre-generated simulations of t-SNE, check out the [demo app](https://das
 ''')],
         style={
             'margin-top': '15px'
-        },
+    },
         className="row"
     )
 ],
@@ -268,7 +270,7 @@ To view pre-generated simulations of t-SNE, check out the [demo app](https://das
         'width': '90%',
         'max-width': 'none',
         'font-size': '1.5rem'
-    }
+}
 )
 
 
@@ -385,7 +387,8 @@ def local_callbacks(app):
             elif learning_rate < 10:
                 learning_rate = 10
 
-            if pca_dim > data_df.shape[1]:  # We limit the pca_dim to the dimensionality of the dataset
+            # We limit the pca_dim to the dimensionality of the dataset
+            if pca_dim > data_df.shape[1]:
                 pca_dim = data_df.shape[1]
             elif pca_dim < 3:
                 pca_dim = 3

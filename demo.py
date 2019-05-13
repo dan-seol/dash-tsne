@@ -15,7 +15,7 @@ import pandas as pd
 import plotly.graph_objs as go
 import scipy.spatial.distance as spatial_distance
 
-#  'cifar_gray_3000', 'fashion_3000'
+
 IMAGE_DATASETS = ('mnist_3000', 'cifar_gray_3000', 'fashion_3000')
 WORD_EMBEDDINGS = ('wikipedia_3000', 'twitter_3000', 'crawler_3000')
 
@@ -48,6 +48,7 @@ def numpy_to_b64(array, scalar=True):
     return im_b64
 
 
+# Methods for creating components in the layout code
 def Card(children, **kwargs):
     return html.Section(
         children,
@@ -56,7 +57,6 @@ def Card(children, **kwargs):
             'margin': 5,
             'borderRadius': 5,
 
-            # Remove possibility to select the text for better UX
             'user-select': 'none',
             '-moz-user-select': 'none',
             '-webkit-user-select': 'none',
@@ -113,6 +113,7 @@ def NamedInlineRadioItems(name, short, options, val, **kwargs):
     )
 
 
+# Actual layout of the app
 demo_layout = html.Div(
     className="row",
     style={
@@ -164,6 +165,10 @@ demo_layout = html.Div(
                              'value': 'twitter_3000'},
                             {'label': 'Wikipedia (GloVe)',
                              'value': 'wikipedia_3000'},
+
+                            # for the local version
+                            # {'label': 'cifar_gray_3000},
+                            # {'label': 'fashion_3000'},
                             # {'label': 'Web Crawler (GloVe)'},
                         ],
                         placeholder="Select a dataset"
@@ -334,29 +339,38 @@ def demo_callbacks(app):
             'wikipedia_3000': pd.read_csv('data/wikipedia_3000.csv'),
             'twitter_3000': pd.read_csv('data/twitter_3000.csv', encoding="ISO-8859-1"),
 
-            # these are for the local app to generate uploaded datasets
+            # These are for the local app to generate uploaded datasets
             'crawler_3000': pd.read_csv('data/crawler_3000.csv'),
             'fashion_3000': pd.read_csv("data/fashion_3000_input.csv"),
             'cifar_gray_3000': pd.read_csv("data/cifar_gray_3000_input.csv"),
         }
 
-    # callback function for the learn-more-button
+    # Callback function for the learn-more button
     @app.callback(Output('learn-more-button', 'children'),
                   [Input('learn-more-button', 'n_clicks')])
     def learn_more(n_clicks):
-        # if clicked odd times, the insturctions will show; else (even times), only the header will show
-        if (n_clicks % 2) == 1:
-            return html.Div(children=[html.Div(
-                style={'width': '75%'},
-                children=dcc.Markdown(demo_intro_md)),
-                html.Div(children=dcc.Markdown(demo_description_md)),
-                html.Button('Close', id='button')
-            ])
-        else:
+        # If clicked odd times, the insturctions will show; else (even times), only the header will show
+        if n_clicks == None:
+            n_clicks = 0
             return html.Div(children=[html.Div(
                 style={'width': '75%'},
                 children=dcc.Markdown(demo_intro_md)),
                 html.Button('Learn More', id='button')])
+        else:
+            if (n_clicks % 2) == 1:
+                n_clicks += 1
+                return html.Div(children=[html.Div(
+                    style={'width': '75%'},
+                    children=dcc.Markdown(demo_intro_md)),
+                    html.Div(children=dcc.Markdown(demo_description_md)),
+                    html.Button('Close', id='button')
+                ])
+            else:
+                n_clicks += 1
+                return html.Div(children=[html.Div(
+                    style={'width': '75%'},
+                    children=dcc.Markdown(demo_intro_md)),
+                    html.Button('Learn More', id='button')])
 
     @app.callback(Output('div-wordemb-controls', 'style'),
                   [Input('dropdown-dataset', 'value')])
