@@ -89,7 +89,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## Screenshots
 
 The following are screenshots for the demo app:
-![animated2](screenshots/demo_animated.gif)
 
 ![screenshot](screenshots/demo_screenshot_mnist.png)
 
