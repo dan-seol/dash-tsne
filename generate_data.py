@@ -30,7 +30,7 @@ mnist_idx = [
     "Digit 6",
     "Digit 7",
     "Digit 8",
-    "Digit 9"
+    "Digit 9",
 ]
 
 cifar_idx = [
@@ -43,7 +43,7 @@ cifar_idx = [
     "frog",
     "horse",
     "ship",
-    "truck"
+    "truck",
 ]
 
 fashion_idx = [
@@ -56,7 +56,7 @@ fashion_idx = [
     "Shirt",
     "Sneaker",
     "Bag",
-    "Ankle boot"
+    "Ankle boot",
 ]
 
 # Load Dataset
@@ -68,7 +68,7 @@ elif dataset_name.lower() in ["cifar", "cifar10"]:
     X, y = cifar10.load_data()[0]
     selected_idx = cifar_idx
 
-elif dataset_name.lower() in ['cifar_gray', 'cifar10_gray', 'cifargray']:
+elif dataset_name.lower() in ["cifar_gray", "cifar10_gray", "cifargray"]:
     from skimage.color import rgb2gray
 
     X, y = cifar10.load_data()[0]
@@ -90,7 +90,7 @@ y = np.array([selected_idx[int(val)] for val in y])
 print("Dataset loaded.")
 
 # Flatten the array, and normalize it
-X = X.reshape(X.shape[0], -1) / 255.
+X = X.reshape(X.shape[0], -1) / 255.0
 
 # We will select the integer values to be the index
 df = pd.DataFrame(X, index=y)
@@ -102,6 +102,8 @@ if sample_size > df.shape[0]:
 samples = df.sample(n=sample_size, random_state=1234)
 
 samples.to_csv(f"data/{dataset_name}_{sample_size}_input.csv", index=False)
-pd.DataFrame(samples.index).to_csv(f"data/{dataset_name}_{sample_size}_labels.csv", index=False)
+pd.DataFrame(samples.index).to_csv(
+    f"data/{dataset_name}_{sample_size}_labels.csv", index=False
+)
 
 print("CSV files created.")
