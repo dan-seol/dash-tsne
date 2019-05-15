@@ -42,7 +42,7 @@ def input_field(title, state_id, state_value, state_max, state_min):
                         value=state_value,
                         max=state_max,
                         min=state_min,
-                        size=7,
+                        size=str(7),
                     )
                 ],
                 style={
@@ -69,7 +69,7 @@ for idx, val in tsne_df.groupby(tsne_df.index):
         y=val["y"],
         z=val["z"],
         mode="markers",
-        marker=dict(size=2.5, symbol="circle-dot"),
+        marker=dict(size=2.5, symbol="circle"),
     )
     data.append(scatter)
 
@@ -107,9 +107,11 @@ local_layout = html.Div(
                 html.Div(
                     [
                         # Data about the graph
-                        html.Div(id="kl-divergence", style={"display": "none"}),
+                        html.Div(id="kl-divergence",
+                                 style={"display": "none"}),
                         html.Div(id="end-time", style={"display": "none"}),
-                        html.Div(id="error-message", style={"display": "none"}),
+                        html.Div(id="error-message",
+                                 style={"display": "none"}),
                         # The graph
                         dcc.Graph(
                             id="tsne-3d-plot",
@@ -123,11 +125,13 @@ local_layout = html.Div(
                 html.Div(
                     [
                         html.H4("t-SNE Parameters", id="tsne_h4"),
-                        input_field("Perplexity:", "perplexity-state", 20, 50, 5),
+                        input_field("Perplexity:",
+                                    "perplexity-state", 20, 50, 5),
                         input_field(
                             "Number of Iterations:", "n-iter-state", 400, 1000, 250
                         ),
-                        input_field("Learning Rate:", "lr-state", 200, 1000, 10),
+                        input_field("Learning Rate:",
+                                    "lr-state", 200, 1000, 10),
                         input_field(
                             "Initial PCA dimensions:", "pca-state", 30, 10000, 3
                         ),
@@ -180,12 +184,14 @@ local_layout = html.Div(
                                 ),
                                 html.Div(
                                     id="training-status-message",
-                                    style={"margin-bottom": "0px", "margin-top": "0px"},
+                                    style={"margin-bottom": "0px",
+                                           "margin-top": "0px"},
                                 ),
                                 html.P(id="error-status-message"),
                             ],
                             id="output-messages",
-                            style={"margin-bottom": "2px", "margin-top": "2px"},
+                            style={"margin-bottom": "2px",
+                                   "margin-top": "2px"},
                         ),
                     ],
                     className="four columns",
@@ -388,7 +394,7 @@ def local_callbacks(app):
                         y=val["y"],
                         z=val["z"],
                         mode="markers",
-                        marker=dict(size=2.5, symbol="circle-dot"),
+                        marker=dict(size=2.5, symbol="circle"),
                     )
                     data.append(scatter)
 
@@ -401,9 +407,11 @@ def local_callbacks(app):
 
         return [
             # Data about the graph
-            html.Div([kl_divergence], id="kl-divergence", style={"display": "none"}),
+            html.Div([kl_divergence], id="kl-divergence",
+                     style={"display": "none"}),
             html.Div([end_time], id="end-time", style={"display": "none"}),
-            html.Div([error_message], id="error-message", style={"display": "none"}),
+            html.Div([error_message], id="error-message",
+                     style={"display": "none"}),
             # The graph
             dcc.Graph(
                 id="tsne-3d-plot",
@@ -443,7 +451,8 @@ def local_callbacks(app):
             ]
 
     @app.callback(
-        Output("error-status-message", "children"), [Input("error-message", "children")]
+        Output("error-status-message",
+               "children"), [Input("error-message", "children")]
     )
     def show_error_message(error_message):
         if error_message is not None:

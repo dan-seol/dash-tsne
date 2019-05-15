@@ -177,6 +177,7 @@ demo_layout = html.Div(
                                         # {'label': 'Web Crawler (GloVe)'},
                                     ],
                                     placeholder="Select a dataset",
+                                    value="mnist_3000"
                                 ),
                                 NamedSlider(
                                     name="Number of Iterations",
@@ -185,7 +186,7 @@ demo_layout = html.Div(
                                     max=1000,
                                     step=None,
                                     val=500,
-                                    marks={i: i for i in [
+                                    marks={i: str(i) for i in [
                                         250, 500, 750, 1000]},
                                 ),
                                 NamedSlider(
@@ -195,7 +196,8 @@ demo_layout = html.Div(
                                     max=100,
                                     step=None,
                                     val=30,
-                                    marks={i: i for i in [3, 10, 30, 50, 100]},
+                                    marks={i: str(i)
+                                           for i in [3, 10, 30, 50, 100]},
                                 ),
                                 NamedSlider(
                                     name="Initial PCA Dimensions",
@@ -204,7 +206,7 @@ demo_layout = html.Div(
                                     max=100,
                                     step=None,
                                     val=50,
-                                    marks={i: i for i in [25, 50, 100]},
+                                    marks={i: str(i) for i in [25, 50, 100]},
                                 ),
                                 NamedSlider(
                                     name="Learning Rate",
@@ -213,7 +215,8 @@ demo_layout = html.Div(
                                     max=200,
                                     step=None,
                                     val=100,
-                                    marks={i: i for i in [10, 50, 100, 200]},
+                                    marks={i: str(i)
+                                           for i in [10, 50, 100, 200]},
                                 ),
                                 html.Div(
                                     id="div-wordemb-controls",
@@ -290,7 +293,7 @@ def demo_callbacks(app):
                 y=val["y"],
                 z=val["z"],
                 text=[idx for _ in range(val["x"].shape[0])],
-                textposition="top",
+                textposition="top center",
                 mode="markers",
                 marker=dict(size=3, symbol="circle"),
             )
@@ -301,9 +304,7 @@ def demo_callbacks(app):
         return figure
 
     # Scatter Plot of the t-SNE datasets
-    def generate_figure_word_vec(
-        embedding_df, layout, wordemb_display_mode, selected_word, dataset
-    ):
+    def generate_figure_word_vec(embedding_df, layout, wordemb_display_mode, selected_word, dataset):
         # Regular displays the full scatter plot with only circles
         if wordemb_display_mode == "regular":
             plot_mode = "markers"
@@ -329,12 +330,12 @@ def demo_callbacks(app):
             embedding_df = embedding_df.loc[neighbors_idx]
 
         scatter = go.Scatter3d(
-            name=embedding_df.index,
+            name=str(embedding_df.index),
             x=embedding_df["x"],
             y=embedding_df["y"],
             z=embedding_df["z"],
             text=embedding_df.index,
-            textposition="middle-center",
+            textposition="middle center",
             showlegend=False,
             mode=plot_mode,
             marker=dict(size=3, color="#3266c1", symbol="circle"),
@@ -399,8 +400,8 @@ def demo_callbacks(app):
                 )
 
     @app.callback(
-        Output("div-wordemb-controls",
-               "style"), [Input("dropdown-dataset", "value")]
+        Output("div-wordemb-controls", "style"),
+        [Input("dropdown-dataset", "value")]
     )
     def show_wordemb_controls(dataset):
         if dataset in WORD_EMBEDDINGS:
@@ -587,7 +588,7 @@ def demo_callbacks(app):
             layout = go.Layout(
                 title=f'5 nearest neighbors of "{selected_word}"',
                 xaxis=dict(title="Euclidean Distance"),
-                margin=go.Margin(l=60, r=60, t=35, b=35),
+                margin=go.layout.Margin(l=60, r=60, t=35, b=35),
             )
 
             fig = go.Figure(data=[trace], layout=layout)

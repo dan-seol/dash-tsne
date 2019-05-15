@@ -53,6 +53,19 @@
   overflow: hidden;
 }
 
+.js-plotly-plot .plotly .modebar-group {
+  background-color: #f2f3f4 !important;
+}
+
+body {
+  font-size: 1.5em; /* currently ems cause chrome bug misinterpreting rems on body element */
+  line-height: 1.6;
+  font-weight: 400;
+  font-family: "Arimo", "Helvetica Light", "Helvetica Neue", Helvetica,
+    "Helvetica 55 Roman";
+  color: #6c7182;
+}
+
 #learn-more-button > div > div:nth-child(2) > div > p:nth-child(11) > img {
   width: 40%;
 }
@@ -67,9 +80,7 @@
 #graph-bar-nearest-neighbors-word > div > div > svg:nth-child(1) {
   background-color: #f2f3f4 !important;
 }
-#graph-3d-plot-tsne > div > div > div.modebar.modebar--hover {
-  background: #f2f3f4 !important;
-}
+
 #graph-bar-nearest-neighbors-word
   > div
   > div
@@ -86,15 +97,6 @@
 }
 
 #react-select-2--value-item {
-  color: #6c7182;
-}
-
-body {
-  font-size: 1.5em; /* currently ems cause chrome bug misinterpreting rems on body element */
-  line-height: 1.6;
-  font-weight: 400;
-  font-family: "Arimo", "Helvetica Light", "Helvetica Neue", Helvetica,
-    "Helvetica 55 Roman";
   color: #6c7182;
 }
 
