@@ -6,31 +6,11 @@ from demo import demo_layout, demo_callbacks
 from local import local_layout, local_callbacks
 
 app = dash.Dash(__name__)
+app = dash.Dash(meta_tags=[{"name": "viewport", "content": "width=device-width"}])
+
 server = app.server
-
-if "DYNO" in os.environ:
-    app.scripts.append_script(
-        {"external_url": "https://codepen.io/plotly/pen/BGyZNa.js"}
-    )
-
-    demo_mode = True
-else:
-    demo_mode = False
-
-
-# App
-if demo_mode:
-    app.layout = demo_layout
-else:
-    app.layout = local_layout
-
-
-# Callbacks
-if demo_mode:
-    demo_callbacks(app)
-else:
-    local_callbacks(app)
-
+app.layout = demo_layout
+demo_callbacks(app)
 
 # Load external CSS
 external_css = [

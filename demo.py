@@ -124,6 +124,7 @@ demo_layout = html.Div(
             children=[
                 html.H2("t-SNE Explorer", className="title", id="app-title"),
                 html.Img(
+                    id="plotly-image",
                     src="https://s3-us-west-1.amazonaws.com/plotly-tutorials/logo/new-branding/dash-logo-by-plotly-stripe.png",
                     style={
                         "height": "90px",
@@ -138,9 +139,13 @@ demo_layout = html.Div(
         html.Div(
             className="row, background",
             id="learn-more-button",
-            style={"padding": "5px 45px"},
+            style={"padding": "50px 45px"},
             children=[
-                html.Div(style={"width": "75%"}, children=dcc.Markdown(demo_intro_md)),
+                html.Div(
+                    id="description-text",
+                    style={"width": "75%"},
+                    children=dcc.Markdown(demo_intro_md),
+                ),
                 html.Button("Learn More", id="button"),
             ],
         ),
@@ -252,6 +257,7 @@ demo_layout = html.Div(
                 ),
                 html.Div(
                     className="three columns",
+                    id="euclidean-distance",
                     children=[
                         Card(
                             style={"padding": "5px"},

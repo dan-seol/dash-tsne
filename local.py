@@ -210,7 +210,7 @@ local_layout = html.Div(
                     """
 This is the local version of the t-SNE explorer. To view the source code, please visit the 
 [GitHub Repository](https://github.com/plotly/dash-tsne). 
-To view pre-generated simulations of t-SNE, check out the [demo app](https://dash-tsne.herokuapp.com). 
+To view pre-generated simulations of t-SNE, check out the [demo app](https://dash-gallery.plotly.host/dash-tsne/). 
 """
                 )
             ],

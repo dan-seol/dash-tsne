@@ -4,13 +4,13 @@
   font-family: "Times New Roman";
   color: #6c7182;
   float: left;
-  margin-top: 20px;
-  margin-left: 30px;
+  margin-top: 25px;
+  margin-left: 45px;
 }
 
 .background {
   background-color: #f2f3f4;
-  padding: 0 0;
+  padding: 0px 0px;
 }
 
 .rc-slider-track {
@@ -109,4 +109,46 @@ body {
   > rect.bg {
   stroke: #6c7182 !important;
   fill: #f2f3f4 !important;
+}
+
+#learn-more-button #button {
+  text-transform: none;
+  font-size: 14px;
+  font-weight: 400;
+  border-radius: 0px;
+  letter-spacing: 0;
+  padding: 0px 15px;
+}
+
+/* ---Different Screen Sizes--- */
+
+@media only screen and (max-width: 375px) {
+  .columns {
+    float: none;
+    width: 70%;
+  }
+
+  .three.columns {
+    padding-left: 20px;
+  }
+
+  .six.columns {
+    padding-left: 40px;
+  }
+
+  background {
+    width: 100%;
+  }
+
+  #plotly-image {
+    float: left !important;
+    height: 30px !important;
+    margin-right: 0px !important;
+    padding-left: 20px !important;
+  }
+  #app-title {
+    float: right !important;
+    padding-right: 20px;
+    margin: 10px 15px;
+  }
 }
